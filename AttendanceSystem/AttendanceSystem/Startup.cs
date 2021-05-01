@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AttendanceSystem.DBModels;
+using AttendanceSystem.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,7 +45,7 @@ namespace AttendanceSystem
                   };
               });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<AttendanceSystemContext>(o => o.UseSqlServer("Server=CYG298;Database=Rms;Trusted_Connection=True;"));
+            services.AddDbContext<AttendanceSystemContext>(o => o.UseSqlServer("Server=CYG298;Database=AttendanceSystem;Trusted_Connection=True;"));
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
                                                                     .AllowAnyMethod()
                                                                      .AllowAnyHeader()));

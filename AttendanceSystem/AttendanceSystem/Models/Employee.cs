@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AttendanceSystem.DBModels
+namespace AttendanceSystem.Models
 {
     public partial class Employee
     {
