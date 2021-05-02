@@ -12549,11 +12549,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vikas.upadhayay\\source\\repos\\AttendanceSystem\\AttendanceSystem\\AttendanceSystem.csproj",
+      "projectUniqueName": "C:\\Users\\vikas.upadhayay\\Desktop\\Team-D\\Attendance-management\\AttendanceSystem\\AttendanceSystem\\AttendanceSystem.csproj",
       "projectName": "AttendanceSystem",
-      "projectPath": "C:\\Users\\vikas.upadhayay\\source\\repos\\AttendanceSystem\\AttendanceSystem\\AttendanceSystem.csproj",
+      "projectPath": "C:\\Users\\vikas.upadhayay\\Desktop\\Team-D\\Attendance-management\\AttendanceSystem\\AttendanceSystem\\AttendanceSystem.csproj",
       "packagesPath": "C:\\Users\\vikas.upadhayay\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vikas.upadhayay\\source\\repos\\AttendanceSystem\\AttendanceSystem\\obj\\",
+      "outputPath": "C:\\Users\\vikas.upadhayay\\Desktop\\Team-D\\Attendance-management\\AttendanceSystem\\AttendanceSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

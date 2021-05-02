@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace AttendanceSystem.DBModels
+namespace AttendanceSystem.Models
 {
     public partial class AttendanceSystemContext : DbContext
     {
@@ -43,10 +43,6 @@ namespace AttendanceSystem.DBModels
 
                 entity.Property(e => e.Status)
                     .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Task)
-                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Emp)

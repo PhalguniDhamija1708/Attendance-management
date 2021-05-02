@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AttendanceSystem.CustomModels;
+using AttendanceSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,24 +14,47 @@ namespace AttendanceSystem.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
-        // GET: api/Attendance
-        [HttpGet]
-        public IEnumerable<string> Get()
+        AttendanceSystemContext _Context;
+
+        public AttendanceController(AttendanceSystemContext context)
         {
-            return new string[] { "value1", "value2" };
+            _Context = context;
         }
 
+
         // GET: api/Attendance/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        //[Authorize]
+        public IActionResult GetByToken(int id)
         {
-            return "value";
+            var Entries = (from days in _Context.DaysEntry join proj in _Context.Project
+                           on days.ProjectId equals proj.ProjectId where days.EmpId == id 
+                           select new {
+                               days.CurrDate,
+                               proj.ProjectDes,
+                               days.Duration,
+                               days.LeaveReason,
+                               days.Status
+                           }).ToList();
+            return Ok(Entries);
         }
 
         // POST: api/Attendance
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] DaysEntryRequest value)
         {
+            DaysEntry Entry = new DaysEntry();
+            Entry.EmpId = value.EmpId;
+            Entry.ProjectId = value.ProjectId;
+            Entry.Duration = value.Duration;
+            Entry.LeaveReason = value.LeaveReason;
+            Entry.CurrDate = value.CurrDate;
+            Entry.IsHoliday = value.IsHoliday;
+            Entry.CurrWeek = value.CurrWeek;
+            Entry.Status = value.Status;
+            _Context.DaysEntry.Add(Entry);
+            _Context.SaveChanges();
+            return Ok("Entry added");
         }
 
         // PUT: api/Attendance/5
