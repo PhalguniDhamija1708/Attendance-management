@@ -12,7 +12,6 @@ namespace AttendanceSystem.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-
         AttendanceSystemContext _Context;
 
         public ProjectController(AttendanceSystemContext context)
@@ -20,20 +19,21 @@ namespace AttendanceSystem.Controllers
             _Context = context;
         }
 
+
         // GET: api/Project
         [HttpGet]
-        public IActionResult GetProjects()
+        public IActionResult Get()
         {
             var Projects = _Context.Project.ToList();
             return Ok(Projects);
         }
 
         // GET: api/Project/5
-        [HttpGet("{id}")]
-        public IActionResult GetProjectId(string des)
+        [HttpGet("{value}")]
+        public IActionResult GetProject(string value)
         {
-            var Project = _Context.Project.FirstOrDefault(x => x.ProjectDes == des);
-            return Ok(Project);
+            var proj = _Context.Project.FirstOrDefault(x => x.ProjectDes == value);
+            return Ok(proj);
         }
 
         // POST: api/Project

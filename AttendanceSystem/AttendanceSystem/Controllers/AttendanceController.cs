@@ -21,14 +21,21 @@ namespace AttendanceSystem.Controllers
             _Context = context;
         }
 
+        // GET: api/Attendance
+        [HttpGet]
+        //[Authorize]
+        /*public IActionResult GetUserByToken()
+        {
+            var student
+        }*/
 
         // GET: api/Attendance/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}/{value}")]
         //[Authorize]
-        public IActionResult GetByToken(int id)
+        public IActionResult GetByToken(int id, string value)
         {
             var Entries = (from days in _Context.DaysEntry join proj in _Context.Project
-                           on days.ProjectId equals proj.ProjectId where days.EmpId == id 
+                           on days.ProjectId equals proj.ProjectId where days.EmpId == id && days.Status == value
                            select new {
                                days.CurrDate,
                                proj.ProjectDes,
@@ -43,18 +50,26 @@ namespace AttendanceSystem.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] DaysEntryRequest value)
         {
-            DaysEntry Entry = new DaysEntry();
-            Entry.EmpId = value.EmpId;
-            Entry.ProjectId = value.ProjectId;
-            Entry.Duration = value.Duration;
-            Entry.LeaveReason = value.LeaveReason;
-            Entry.CurrDate = value.CurrDate;
-            Entry.IsHoliday = value.IsHoliday;
-            Entry.CurrWeek = value.CurrWeek;
-            Entry.Status = value.Status;
-            _Context.DaysEntry.Add(Entry);
-            _Context.SaveChanges();
-            return Ok("Entry added");
+            var days = _Context.DaysEntry.Where(x => x.CurrDate == value.CurrDate && x.EmpId == value.EmpId).FirstOrDefault();
+            if (days != null)
+            {
+                return StatusCode(409);
+            }
+            else
+            {
+                DaysEntry Entry = new DaysEntry();
+                Entry.EmpId = value.EmpId;
+                Entry.ProjectId = value.ProjectId;
+                Entry.Duration = value.Duration;
+                Entry.LeaveReason = value.LeaveReason;
+                Entry.CurrDate = value.CurrDate;
+                Entry.CurrWeek = value.CurrWeek;
+                Entry.IsHoliday = value.IsHoliday;
+                Entry.Status = value.Status;
+                _Context.DaysEntry.Add(Entry);
+                _Context.SaveChanges();
+                return Ok(Entry);
+            }
         }
 
         // PUT: api/Attendance/5
