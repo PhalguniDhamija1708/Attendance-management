@@ -59,49 +59,51 @@
                 Statistics
             </div>
 
+            
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="./newchart.html"
+                    aria-expanded="true">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Dashboard</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <!-- <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="buttons.html">Previous Timesheet</a>
                         <a class="collapse-item" href="cards.html">Insights</a>
                     </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#"
-                    aria-expanded="true">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Current Timesheet</span>
-                </a>
-                <!-- <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
                 </div> -->
             </li>
 
-            <!-- Divider -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="./newchart.html"
+                    aria-expanded="true">
+                    <i class="fas fa-fw fa-bar-chart" aria-hidden="true"></i>
+                    <span>Insights</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="./newtable.html"
+                    aria-expanded="true">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Previous Timesheet</span>
+                </a>
+            </li>
+
             
-            <!-- Divider -->
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="./newtable.html">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Current Timesheet</span>
+                </a>
+            </li>
+
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-           
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -180,15 +182,81 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Timesheet</h1>
+                    <p class="mb-4">Your current timesheet is displayed below <a target="_blank"
+                            href="https://datatables.net">@CyberGroup</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <div class="row">
+                                <div class="col-6"><h5 class="m-0 font-weight-bold text-primary mt-1">WeekNo</h5></div>
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="float: right;"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" id="tabs">
+                                        <div role="tabpanel">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs" role="tablist">
+                                                <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab" id="workday" class="btn btn-outline-primary">Work Day</a>
+                        
+                                                </li>
+                                                <li role="presentation"><a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab" id="leave" class="btn btn-outline-primary ml-4">Leave</a>
+                                                </li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane active" id="uploadTab">
+                                                    <form>
+                                                        <div class="form-group">
+                                                          <label for="recipient-name" class="col-form-label">Date:</label>
+                                                          <input type="date" class="form-control" id="recipient-name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <label for="dropdown" class="col-form-label">Project:</label><br>
+                                                          <select name="cars" id="cars" class="form-control">
+                                                            <!-- <option value="volvo">{{}}</option>
+                                                            <option value="saab">Saab</option>
+                                                            <option value="opel">Opel</option>
+                                                            <option value="audi">Audi</option> -->
+                                                        </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="message-text" class="col-form-label">Duration:</label>
+                                                            <input type="number" class="form-control" id="duration" name="duration">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane" id="browseTab"> 
+                                                    <form>
+                                                    <div class="form-group">
+                                                      <label for="recipient-name" class="col-form-label">Date:</label>
+                                                      <input type="date" class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label for="message-text" class="col-form-label">Leave Reason:</label>
+                                                      <textarea class="form-control" id="message-text"></textarea>
+                                                    </div>
+                                                  </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                                        <button type="button" class="btn btn-primary save">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -738,6 +806,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="modal.js"></script>
 
 </body>
 
