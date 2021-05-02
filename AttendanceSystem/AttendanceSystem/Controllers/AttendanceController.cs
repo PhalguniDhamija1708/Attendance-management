@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AttendanceSystem.CustomModels;
 using AttendanceSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -40,8 +41,20 @@ namespace AttendanceSystem.Controllers
 
         // POST: api/Attendance
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] DaysEntryRequest value)
         {
+            DaysEntry Entry = new DaysEntry();
+            Entry.EmpId = value.EmpId;
+            Entry.ProjectId = value.ProjectId;
+            Entry.Duration = value.Duration;
+            Entry.LeaveReason = value.LeaveReason;
+            Entry.CurrDate = value.CurrDate;
+            Entry.IsHoliday = value.IsHoliday;
+            Entry.CurrWeek = value.CurrWeek;
+            Entry.Status = value.Status;
+            _Context.DaysEntry.Add(Entry);
+            _Context.SaveChanges();
+            return Ok("Entry added");
         }
 
         // PUT: api/Attendance/5
