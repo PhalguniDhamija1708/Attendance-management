@@ -58,9 +58,21 @@ namespace AttendanceSystem.Controllers
         }
 
         // PUT: api/Attendance/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{id}/{request}/{date}")]
+        public IActionResult Put(int id, string request, DateTime date, [FromBody] DaysEntryRequest value)
         {
+            DaysEntry Entry = _Context.DaysEntry.FirstOrDefault(x => x.EmpId == id && x.Status == request && x.CurrDate == date);
+            Entry.CurrDate = value.CurrDate;
+            Entry.CurrWeek = value.CurrWeek;
+            Entry.EmpId = value.EmpId;
+            Entry.ProjectId = value.ProjectId;
+            Entry.Status = value.Status;
+            Entry.IsHoliday = value.IsHoliday;
+            Entry.LeaveReason = value.LeaveReason;
+            Entry.Duration = value.Duration;
+            _Context.DaysEntry.Update(Entry);
+            _Context.SaveChanges();
+            return Ok(Entry);
         }
 
         // DELETE: api/ApiWithActions/5

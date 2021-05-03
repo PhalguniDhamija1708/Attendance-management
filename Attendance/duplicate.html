@@ -87,6 +87,19 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="./blank.html">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>In Process Timesheet</span>
+                </a>
+            </li>
+            <li class="nav-item" id="HideLi" style="display: none;">
+                <a class="nav-link collapsed" href="./11.html">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Aprrove Timesheet</span>
+                </a>
+            </li>
+
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
@@ -290,47 +303,50 @@
             </div>
         </div>
 
+        
+
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h4 class="modal-title" id="UpdateTitleModal"></h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body" id="tabs">
+                    <div class="modal-body" id="tabs1">
                         <div role="tabpanel">
-                            <form id="post-timesheet">
-                            <label for="recipient-name" class="col-form-label">Date: <span style="color: red;">*</span></label>
-                            <input type="date" class="form-control" id="date-input" required>
+                            <form id="update-timesheet">    
+                            <!-- <label for="recipient-name" class="col-form-label">Date: <span style="color: red;">*</span></label>
+                            <input type="date" class="form-control" id="date-input-m" required> -->
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs my-3" role="tablist">
-                                <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab" id="workday" class="btn btn-outline-primary">Work Day</a>
+                                <li role="presentation" class="active"><a href="#uploadedTab" aria-controls="uploadedTab" role="tab" data-toggle="tab" id="worksday" class="btn btn-outline-primary">Work Day</a>
         
                                 </li>
-                                <li role="presentation"><a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab" id="leave" class="btn btn-outline-primary ml-4">Leave</a>
+                                <li role="presentation"><a href="#browsedTab" aria-controls="browsedTab" role="tab" data-toggle="tab" id="leaves" class="btn btn-outline-primary ml-4">Leave</a>
                                 </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="uploadTab">
+                                <div role="tabpanel" class="tab-pane active" id="uploadedTab">
                                     
                                         <div class="form-group">
                                           <label for="dropdown" class="col-form-label">Project:</label><br>
-                                          <select name="project" id="project" class="form-control">
+                                          <select name="project" id="project-m" class="form-control">
     
                                           </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="message-text" class="col-form-label">Duration:</label>
-                                            <input type="number" class="form-control" id="duration" name="duration">
+                                            <input type="number" class="form-control" id="duration-m" name="duration">
                                         </div>
                                     
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="browseTab"> 
+                                <div role="tabpanel" class="tab-pane" id="browsedTab"> 
                                     
                                     <div class="form-group">
                                       <label for="message-text" class="col-form-label">Leave Reason:</label>
-                                      <textarea class="form-control" id="leaveReason"></textarea>
+                                      <textarea class="form-control" id="leaveReason-m"></textarea>
                                     </div>
                                   
                                 </div>
@@ -340,11 +356,38 @@
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-                        <button type="button" class="btn btn-primary save" onclick="Put()">Save changes</button>
+                        <button type="button" class="btn btn-primary saved" onclick="Put()">Save changes</button>
                     </div>
                 </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="putModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Please select your start and current date</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="tabs1">
+                            <div role="tabpanel">
+                                <form id="change-timesheet">
+                                <label for="startdate" class="col-form-label">Start Date: <span style="color: red;">*</span></label>
+                                <input type="date" class="form-control" id="startdate-input" required>
+                                <label for="enddate" class="col-form-label">End Date: <span style="color: red;">*</span></label>
+                                <input type="date" class="form-control" id="enddate-input" required>
+                               
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                            <button type="button" class="btn btn-primary saved" data-dismiss="modal" onclick="CurrStatus()">Save changes</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
