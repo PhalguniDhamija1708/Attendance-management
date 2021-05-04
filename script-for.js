@@ -3,6 +3,8 @@ var myInput = document.getElementById("ForgetInputPasword");
     var capital = document.getElementById("capital");
     var number = document.getElementById("number");
     var length = document.getElementById("length");
+    const loader = document.getElementById('loading');
+    const myForm = document.getElementById('myForm');
     // When the user clicks on the password field, show the message box
     myInput.onfocus = function() {
         document.getElementById("message").style.display = "block";
@@ -72,6 +74,7 @@ function UpdatePassword(){
 
     if(password.value == rePassword.value){
         console.log("helloii");
+        displayLoading();
         fetch("https://localhost:44389/api/UserDetails" + "/" + email.value.toString(), {
         method: "PUT",
         mode: 'cors', 
@@ -85,6 +88,7 @@ function UpdatePassword(){
         body: JSON.stringify(TempUser)
         })
         .then(result => {
+            hideloading();
             console.log(result);
             if(result.status == 200){
                 Email.send({
@@ -118,14 +122,27 @@ function UpdatePassword(){
             alert("Not found");
         })
     }else{
-        email.value = "";
-        username.value = "";
         password.value = "";
         rePassword.value = "";
+        password.style.borderColor = "red";
+        password.focus();
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             html : `<div> Password do not match. </div>`
         })
     }
+}
+
+function displayLoading(){
+    loader.classList.add("display");
+    myForm.classList.add("abc");
+    setTimeout(()=>{
+        loader.classList.remove("display");
+    }, 5000);
+}
+
+function hideloading(){
+    loader.classList.remove("display");
+    myForm.classList.remove("abc");
 }

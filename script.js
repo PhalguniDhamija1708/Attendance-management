@@ -1,8 +1,11 @@
+const loader = document.getElementById('loading');
+
 function ValidateForm() 
 {
     const mail = document.getElementById('exampleInputEmail');
     const pass = document.getElementById('exampleInputPassword');
     const okButton = document.getElementById('Ok');
+    
 
     if(mail.value == ""){
         Swal.fire({
@@ -154,7 +157,7 @@ function Authenticatelogin(){
         "email" : email.value,
         "passWord" : password.value
     }
-
+    displayLoading();
     fetch("https://localhost:44389/api/Login", {
     method: "POST",
     mode: 'cors', 
@@ -169,6 +172,7 @@ function Authenticatelogin(){
     })
     .then(res => res.json())
     .then(res => {
+        hideloading();
         // console.log(res);
         // document.getElementById('error-message').innerHTML = "";
         localStorage.setItem("token", JSON.stringify(res));
@@ -208,6 +212,8 @@ function Authenticatelogin(){
     })
     .catch(function(){
         // console.log("You are not authorized!");
+        hideloading();
+        console.log("4");
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -310,7 +316,19 @@ function getEmployee(){
 
 function Logout(){
     localStorage.removeItem("token");
+    // localStorage.remove();
     location.replace("./login.html");
+}
+
+function displayLoading(){
+    loader.classList.add("display");
+    setTimeout(()=>{
+        loader.classList.remove("display");
+    }, 5000);
+}
+
+function hideloading(){
+    loader.classList.remove("display");
 }
 
 
