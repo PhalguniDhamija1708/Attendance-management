@@ -1,0 +1,93 @@
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+  
+  /* Style the submit button */
+  input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+  }
+  
+  /* Style the container for inputs */
+  .container {
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  
+  /* The message box is shown when the user clicks on the password field */
+  #message {
+    display:none;
+    background: FFFFFF;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+  }
+  
+  #message p {
+    padding: 10px 35px;
+    font-size: 18px;
+  }
+  
+  /* Add a green text color and a checkmark when the requirements are right */
+  .valid {
+    color: green;
+  }
+  
+  .valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+  }
+  
+  /* Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+    color: red;
+  }
+  
+  .invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+  }
+
+  #loading {
+      border: 5px solid #f3f3f3;
+      border-top: 6px solid #9c41f2;
+      border-radius: 100%;
+      top: 250px;
+      /* z-index: 1001; */
+      opacity: 1;
+      margin: auto;
+      visibility: hidden;
+      position: fixed;
+      width: 10rem; 
+      height: 10rem;
+      z-index: 9999;
+      animation: spin 1s infinite linear;
+  }
+
+  #loading.display {
+  visibility: visible;
+  z-index: 1;
+  }
+
+  #myForm.abc{
+      z-index: -1;
+  }
+
+  @keyframes spin{
+      from{
+          transorm: rotate(0deg);
+      }
+      to{
+          transform: rotate(360deg);
+      }
+  }
+

@@ -19,15 +19,23 @@ function Get(){
                 var str = temp.currDate.slice(0,10);
                 var p = str.split("-");
                 var date = new Date(p[0],p[1],p[2]);
-               if(temp.leaveReason == null || temp.leaveReason == ""){ temp.leaveReason = "-";}
-                else{ temp.projectId = "-"; temp.duration="-";}
+                if(temp.leaveReason != null ){
                     li += `<tr>
                                 <td>${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</td>
-                                <td>${temp.projectId}</td>
-                                <td>${temp.duration}</td>
+                                <td>-</td>
+                                <td>-</td>
                                 <td>${temp.leaveReason}</td>
                                 <td>${temp.status}</td>
+                          </tr>`;}
+                else{
+                    li += `<tr>
+                                <td>${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</td>
+                                <td>${temp.project.projectDes}</td>
+                                <td>${temp.duration}</td>
+                                <td>-</td>
+                                <td>${temp.status}</td>
                           </tr>`;
+                }
                 });
             document.getElementById("IdToken").innerHTML = li;
     }).catch(function(error) {

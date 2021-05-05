@@ -10,6 +10,9 @@
     <meta name="author" content="">
 
     <title>SB Admin 2 - Dashboard</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -69,13 +72,13 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="./newchart.html"
                     aria-expanded="true">
                     <i class="fas fa-fw fa-bar-chart" aria-hidden="true"></i>
                     <span>Insights</span>
                 </a>
-            </li>
+            </li> -->
 
             
 
@@ -157,16 +160,29 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
+                    <h1 class="h3 mb-2 text-gray-800">In Progress Sheets</h1>
+                    <p class="mb-4">Search for the sheet from DropDown to view their Progress.<a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <div class="row">
-                                <div class="col-6"><h5 class="m-0 font-weight-bold text-primary mt-1">WeekNo</h5></div>
+                            <div class="col-6">
+                            <h5 class="m-0 font-weight-bold text-primary">Sheet In Progress</h5>
+                            </div>
+                            <div class="col-6">
+                             <div style="float: right; padding-right: 40px;">
+                                <div class="form-outline">
+                                <select id='selUser' style='height:42px;width: 200px;border-radius: 10px;outline: none;'>
+                                </select>
+                                <button type="button" class="btn btn-primary" value='Seleted option' id='but_read' style="position: absolute;">
+                                    <i class="fas fa-search"></i>
+                                  </button>
+                                </div>
+                                
+                                <!-- <div id='result'></div> -->
+                              </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -174,7 +190,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Current Date</th>
+                                            <th>Day</th>
                                             <th>Project</th>
                                             <th>Duration</th>
                                             <th>Leave Reason</th>
@@ -287,6 +303,7 @@
                                 <div class="form-group">
                                   <label for="message-text" class="col-form-label">Leave Reason:</label>
                                   <textarea class="form-control" id="leaveReason-m"></textarea>
+                                  <span>Type *Holiday* if there is an holiday.</span>
                                 </div>
                               
                             </div>
@@ -296,7 +313,7 @@
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-                    <button type="button" class="btn btn-primary saved" onclick="Put()">Save changes</button>
+                    <button type="button" class="btn btn-primary saved" onclick="Put()" data-dismiss="modal">Save changes</button>
                 </div>
             </div>
             </div>
@@ -316,6 +333,13 @@
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="Scripts/Inprocess.js"></script>
+    
+    <!-- jQuery --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+
+    <!-- Select2 JS --> 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
 </body>
 
