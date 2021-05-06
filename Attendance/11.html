@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>SB Admin 2 - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,8 +22,7 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
-<body id="page-top">
+<body id="page-top" onload="Get()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -33,6 +33,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
+                    <img src="img/cglogo.png" alt="hugenerd" width="50" height="50" class="rounded-circle">
                     <!-- <i class="fas fa-laugh-wink"></i> -->
                     <img src="img/cglogo.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
                 </div>
@@ -45,6 +46,7 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+                <a class="nav-link" href="./index.html">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Home</span></a>
@@ -62,6 +64,14 @@
             
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+            <a class="nav-link collapsed" href="./index.html"
+                    aria-expanded="true">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Previous Timesheet</span>
+                </a>
+            </li>
+
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="./newchart.html"
                     aria-expanded="true">
                     <i class="fas fa-fw fa-cog"></i>
@@ -76,11 +86,32 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="./newchart.html"
+            <a class="nav-link collapsed" href="./newchart.html"
                     aria-expanded="true">
                     <i class="fas fa-fw fa-bar-chart" aria-hidden="true"></i>
                     <span>Insights</span>
                 </a>
+            </li> -->
+
+            
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="./duplicate.html">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Current Timesheet</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="./blank.html">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>In Process Timesheet</span>
+                </a>
+            </li>
+            <li class="nav-item" id="HideLi" >
+                <a class="nav-link collapsed" href="./11.html">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Aprrove Timesheet</span>
             </li>
 
             <li class="nav-item">
@@ -120,7 +151,8 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
                     <!-- Topbar Search -->
                     <!-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -139,14 +171,14 @@
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        
-
+                   
                         <!-- <div class="topbar-divider d-none d-sm-block"></div> -->
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="EmpiDetails"></span>
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
@@ -181,7 +213,44 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <h1 class="h3 mb-2 text-gray-800">Approve Sheets</h1>
+                    <p class="mb-4">Search for the Sheet from the DropDown<a target="_blank"
+                            href="https://datatables.net">@CyberGroup</a>.</p>
 
+                    <!-- DataTales Example -->
+                    <!-- <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <div class="row">
+                                <div class="col-6">
+                            <h5 class="m-0 font-weight-bold text-primary">WeekNo</h5></div>
+                            <div class="col-6 pr-0" style="padding-left: 15%;">
+                            <select id='selUser' style='width: 200px;'>
+                            </select>
+                              <button type='button' value='Seleted option' id='but_read' ><i class="fa fa-search" aria-hidden="true"></i></button><br/>
+                             <div id='result'></div>
+                             </div>
+                            </div>
+                        </div> -->
+                    <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <div class="row">
+                                <div class="col-6">
+                                <h5 class="m-0 font-weight-bold text-primary">Sheet To Approve</h5>
+                                </div>
+                                <div class="col-6">
+                                 <div style="float: right; padding-right: 40px;">
+                                    <div class="form-outline">
+                                    <select id='selUser' style='height:42px;width: 200px;border-radius: 10px;outline: none;'>
+                                    </select>
+                                    <button type="button" class="btn btn-primary" value='Seleted option' id='but_read' style="position: absolute;">
+                                        <i class="fas fa-search"></i>
+                                      </button>
+                                    </div>
+                                    
+                                    <!-- <div id='result'></div> -->
+                                  </div>
+                                </div>
+                            </div>
                     <h1 class="h3 mb-2 text-gray-800">Timesheet</h1>
                     <p class="mb-4">Your current timesheet is displayed below <a target="_blank"
                             href="https://datatables.net">@CyberGroup</a>.</p>
@@ -263,6 +332,21 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Employee Name</th>
+                                            <th>Day</th>
+                                            <th>Project</th>
+                                            <th>Duration (in Hours)</th>
+                                            <th>Leave Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot id="tfooot">
+
+                                    </tfoot>
+                                    <tbody id = "IdToken">
+                                        
+                                    </tbody>
+                                </table>
+                               <center> <div id="internal-table"></div></center>
                                             <th>Name</th>
                                             <th>Position</th>
                                             <th>Office</th>
@@ -784,12 +868,12 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="#" onclick="Logout()">Logout</a>
                     <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -802,6 +886,17 @@
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="./Scripts/Approval.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <!-- jQuery --> 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+
+    <!-- Select2 JS --> 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>

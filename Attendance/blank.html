@@ -9,6 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <title>SB Admin 2 - Dashboard</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>SB Admin 2 - Blank</title>
 
     <!-- Custom fonts for this template-->
@@ -22,6 +26,7 @@
 
 </head>
 
+<body id="page-top" onload="Get()">
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -31,6 +36,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <img src="img/cglogo.png" alt="hugenerd" width="50" height="50" class="rounded-circle">
+                </div>
+                <div class="sidebar-brand-text mx-3">Cyber Group</div>
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
@@ -42,10 +53,19 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
+
+            <li class="nav-item active">
+                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+                <a class="nav-link" href="./index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Home</span></a>
+                </div>
+
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
+
             </li>
 
             <!-- Divider -->
@@ -53,6 +73,54 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
+
+                Statistics
+            </div>
+
+            
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="./index.html"
+                    aria-expanded="true">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Previous Timesheet</span>
+                </a>
+            </li>
+
+            <!-- <li class="nav-item">
+                <a class="nav-link collapsed" href="./newchart.html"
+                    aria-expanded="true">
+                    <i class="fas fa-fw fa-bar-chart" aria-hidden="true"></i>
+                    <span>Insights</span>
+                </a>
+            </li> -->
+
+            
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="./duplicate.html">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Current Timesheet</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="./blank.html">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>In Process Timesheet</span>
+                </a>
+            </li>
+            <li class="nav-item" id="HideLi" style="display: none;">
+                <a class="nav-link collapsed" href="./11.html">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Aprrove Timesheet</span>
+                </a>
+            </li>
+
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
                 Interface
             </div>
 
@@ -142,7 +210,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -160,6 +227,9 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
                     <!-- Topbar Search -->
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -324,6 +394,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="EmpiDetails"></span>
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
@@ -331,6 +402,11 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                                <!-- <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
@@ -359,9 +435,58 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <h1 class="h3 mb-2 text-gray-800">In Progress Sheets</h1>
+                    <p class="mb-4">Search for the sheet from DropDown to view their Progress.<a target="_blank"
+                            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <div class="row">
+                            <div class="col-6">
+                            <h5 class="m-0 font-weight-bold text-primary">Sheet In Progress</h5>
+                            </div>
+                            <div class="col-6">
+                             <div style="float: right; padding-right: 40px;">
+                                <div class="form-outline">
+                                <select id='selUser' style='height:42px;width: 200px;border-radius: 10px;outline: none;'>
+                                </select>
+                                <button type="button" class="btn btn-primary" value='Seleted option' id='but_read' style="position: absolute;">
+                                    <i class="fas fa-search"></i>
+                                  </button>
+                                </div>
+                                
+                                <!-- <div id='result'></div> -->
+                              </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Project</th>
+                                            <th>Duration</th>
+                                            <th>Leave Reason</th>
+                                            <th>Status</th>
+                                            <th>Update</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody id="CurrentSheet">
+
+                                    </tbody>
+                                    
+                                </table>
+                                <center><div id="internal-table">
+
+                                </div></center>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -372,7 +497,11 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
+
+                        <span>Copyright &copy; Your Website 2021</span>
+
                         <span>Copyright &copy; Your Website 2020</span>
+
                     </div>
                 </div>
             </footer>
@@ -403,12 +532,72 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" onclick="Logout()" >Logout</a>
                     <a class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Update Model -->
+    <!-- Modal -->
 
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="UpdateTitleModal"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="tabs1">
+                    <div role="tabpanel">
+                        <form id="update-timesheet">    
+                        <!-- <label for="recipient-name" class="col-form-label">Date: <span style="color: red;">*</span></label>
+                        <input type="date" class="form-control" id="date-input-m" required> -->
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs my-3" role="tablist">
+                            <li role="presentation" class="active"><a href="#uploadedTab" aria-controls="uploadedTab" role="tab" data-toggle="tab" id="worksday" class="btn btn-outline-primary">Work Day</a>
+    
+                            </li>
+                            <li role="presentation"><a href="#browsedTab" aria-controls="browsedTab" role="tab" data-toggle="tab" id="leaves" class="btn btn-outline-primary ml-4">Leave</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="uploadedTab">
+                                
+                                    <div class="form-group">
+                                      <label for="dropdown" class="col-form-label">Project:</label><br>
+                                      <select name="project" id="project-m" class="form-control">
+
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Duration:</label>
+                                        <input type="number" class="form-control" id="duration-m" name="duration">
+                                    </div>
+                                
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="browsedTab"> 
+                                
+                                <div class="form-group">
+                                  <label for="message-text" class="col-form-label">Leave Reason:</label>
+                                  <textarea class="form-control" id="leaveReason-m"></textarea>
+                                  <span>Type *Holiday* if there is an holiday.</span>
+                                </div>
+                              
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <button type="button" class="btn btn-primary saved" onclick="Put()" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+            </div>
+        </div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -418,6 +607,19 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="Scripts/Inprocess.js"></script>
+    
+    <!-- jQuery --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+
+    <!-- Select2 JS --> 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
 </body>
 
