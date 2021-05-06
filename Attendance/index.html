@@ -62,19 +62,22 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="./index.html"
+                <a class="nav-link collapsed" href="#"
+
                     aria-expanded="true">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Previous Timesheet</span>
                 </a>
             </li>
 
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="./newchart.html"
                     aria-expanded="true">
                     <i class="fas fa-fw fa-bar-chart" aria-hidden="true"></i>
                     <span>Insights</span>
                 </a>
             </li> -->
+            </li>
 
             
 
@@ -157,12 +160,16 @@
 
                     <h1 class="h3 mb-2 text-gray-800">Timesheet</h1>
                     <p class="mb-4">Your Previous timesheet is displayed below <a target="_blank"
+                    <p class="mb-4">Your current timesheet is displayed below <a target="_blank"
                             href="https://datatables.net">@CyberGroup</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
+
                             <h5 class="m-0 font-weight-bold text-primary">Previous TimeSheet</h5>
+
+                            <h5 class="m-0 font-weight-bold text-primary">WeekNo</h5>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -172,6 +179,10 @@
                                             <th>Date (mm/dd/yyyy)</th>
                                             <th>Project</th>
                                             <th>Duration (in Hours)</th>
+                                            <th>Current Date</th>
+                                            <th>Project</th>
+                                            <th>Duration</th>
+
                                             <th>Leave Reason</th>
                                             <th>Status</th>
                                         </tr>
@@ -230,8 +241,6 @@
             </div>
         </div>
     </div>
-
-    
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

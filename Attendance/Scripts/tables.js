@@ -36,6 +36,15 @@ function Get(){
                                 <td>${temp.status}</td>
                           </tr>`;
                 }
+               if(temp.leaveReason == null || temp.leaveReason == ""){ temp.leaveReason = "-";}
+                else{ temp.projectDes = "-"; temp.duration="-";}
+                    li += `<tr>
+                                <td>${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</td>
+                                <td>${temp.projectDes}</td>
+                                <td>${temp.duration}</td>
+                                <td>${temp.leaveReason}</td>
+                                <td>${temp.status}</td>
+                          </tr>`;
                 });
             document.getElementById("IdToken").innerHTML = li;
     }).catch(function(error) {
@@ -92,7 +101,7 @@ function showhide()
     {
     div.style.display = "block";
 }}
-
+}
 function Logout(){
     localStorage.removeItem('token');
     location.replace('./login.html');
