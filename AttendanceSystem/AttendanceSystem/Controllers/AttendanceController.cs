@@ -34,25 +34,44 @@ namespace AttendanceSystem.Controllers
         //[Authorize]
         public IActionResult GetByToken(int id, string value)
         {
-            var Entries = (from days in _Context.DaysEntry
-                           join Emp in _Context.Employee on days.EmpId equals Emp.EmpId
-                           where Emp.EmpId == id && days.Status == value
-                           orderby days.CurrDate ascending
-                           select new
-                           {
-                               Emp.EmpName,
-                               days.CurrDate,
-                               days.Project,
-                               days.Duration,
-                               days.LeaveReason,
-                               days.Status,
-                               days.IsHoliday
-                           }).ToList();
-            return Ok(Entries);
+            if (value == "Approved")
+            {
+                var Entries = (from days in _Context.DaysEntry
+                               join Emp in _Context.Employee on days.EmpId equals Emp.EmpId
+                               where Emp.EmpId == id && days.Status == value
+                               orderby days.CurrDate descending
+                               select new
+                               {
+                                   Emp.EmpName,
+                                   days.CurrDate,
+                                   days.Project,
+                                   days.Duration,
+                                   days.LeaveReason,
+                                   days.Status,
+                                   days.IsHoliday
+                               }).Take(30).ToList();
+                return Ok(Entries);
+            }
 
-           // var Entries = _Context.DaysEntry.Where(x => x.EmpId == id && x.Status == value).ToList();
-            //Entries.ForEach(a => a.Project = _Context.Project.FirstOrDefault(x=> x.ProjectId == a.ProjectId));
-           // return Ok(Entries);
+            else
+            {
+                var Entries = (from days in _Context.DaysEntry
+                               join Emp in _Context.Employee on days.EmpId equals Emp.EmpId
+                               where Emp.EmpId == id && days.Status == value
+                               orderby days.CurrDate ascending
+                               select new
+                               {
+                                   Emp.EmpName,
+                                   days.CurrDate,
+                                   days.Project,
+                                   days.Duration,
+                                   days.LeaveReason,
+                                   days.Status,
+                                   days.IsHoliday
+                               }).ToList();
+                return Ok(Entries);
+            }
+           
         }
 
 

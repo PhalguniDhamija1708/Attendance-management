@@ -12,8 +12,6 @@ $('#updateModal .saved').click(function (e) {
     //$(this).tab('show')
     return false;
 });
-})
-
 function TableLoad(){
     var id = JSON.parse(localStorage.getItem("token"))['id'];
     fetch("https://localhost:44352/api/Attendance/" + id +"/Pending",{
@@ -46,26 +44,11 @@ function TableLoad(){
                                 <td><a href="#"  data-toggle="modal" data-target="#updateModal" onclick="UpdateModal('${temp.currDate}')">
                                 <i class="fa fa-edit ml-3" aria-hidden="true"></i></a>
                                 
-                var str = temp.currDate.slice(0,10);
-                var p = str.split("-");
-                var date = new Date(p[0],p[1],p[2]);
-                if(temp.leaveReason == null || temp.leaveReason == ""){ temp.leaveReason = "-"; }
-                else{ temp.projectDes = "-"; temp.duration="-";}
-                    li += `<tr>
-                                <td>${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</td>
-                                <td>${temp.projectDes}</td>
-                                <td>${temp.duration}</td>
-                                <td>${temp.leaveReason}</td>
-                                <td>${temp.status}</td>
-                                <td><a href="#"  data-toggle="modal" data-target="#updateModal" >
-                                <i class="fa fa-edit ml-3" aria-hidden="true"></i></a>
-                                <a><i class="fa fa-trash ml-5" aria-hidden="true" style="color: black;"></i></a>
                                 </td>
                           </tr>`;
                 });
             document.getElementById("CurrentSheet").innerHTML = li;
             document.getElementById("internal-table").innerHTML = `<a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#putModal">
-            document.getElementById("internal-table").innerHTML = `<a href="#" class="btn btn-success btn-icon-split">
                                                                         <span class="icon text-white-50">
                                                                          <i class="fas fa-check"></i>
                                                                         </span>
@@ -76,6 +59,8 @@ function TableLoad(){
         alert('Looks like there was a problem: \n', error);
     })
 }
+
+
 //<a><i class="fa fa-trash ml-5" aria-hidden="true" style="color: black;"></i></a>
 
 function Get(){
@@ -122,8 +107,6 @@ function Get(){
             });
             document.getElementById("project").innerHTML = li;
             document.getElementById("project-m").innerHTML = li;
-            document.getElementById("project").innerHTML += li;
-
             //console.log(document.getElementById("project"));
     }).catch(function(error) {
         alert('Looks like there was a problem: \n', error);
@@ -131,6 +114,7 @@ function Get(){
 
     //table fillling 
     TableLoad();
+
     fetch("https://localhost:44352/api/TimeSheetRequest/" + id,{
     mode: 'cors',
     cache: 'no-cache',
@@ -203,7 +187,6 @@ function Post(){
                             title: 'Timesheet has been saved',
                             showConfirmButton: false,
                             timer: 2500
-                            timer: 1500
                           });
                     }
                     else if(res.status==401){
@@ -263,6 +246,7 @@ function Post(){
           })
     }
     document.getElementById("post-timesheet").reset();
+    
 }
 
 function UpdateModal(date){
@@ -398,14 +382,6 @@ function showhide()
     {
     div.style.display = "block";
 }}
-
-    TableLoad();
-}
-
-
-function Put(){
-    
-}
 
 
 function CureeWeek(RequestDate){
