@@ -1,20 +1,35 @@
-function Get(){
+const loader = document.getElementById('ImLoading');
 
+
+
+
+function Refresh(){
     var id = JSON.parse(localStorage.getItem("token"))['id'];
-   // console.log("https://localhost:44352/api/Attendance/" + id);
-
-    fetch("https://localhost:44352/api/Attendance/" + id +"/Approved",{
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow', 
-    referrerPolicy: 'no-referrer'
-    }).then(resp => resp.json())
-    .then(data=>{
+    var start = document.getElementById("start").value;
+    var end = document.getElementById("end").value;
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    
+    var raw = JSON.stringify({
+      "startDate": start,
+      "endDate": end
+    });
+    
+    var requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    displayLoading();
+    fetch("https://localhost:44352/api/Display/"+id+"/Approved", requestOptions)
+      .then(response => response.json())
+      .then(data=>{
+        hideloading();
         let li = "";
+            //data.reverse();
+            if(data.length>0){
+                document.getElementById("internal-table").innerHTML = "";
             data.forEach(temp => {
                 var str = temp.currDate.slice(0,10);
                 var p = str.split("-");
@@ -36,15 +51,58 @@ function Get(){
                                 <td>${temp.status}</td>
                           </tr>`;
                 }
-               if(temp.leaveReason == null || temp.leaveReason == ""){ temp.leaveReason = "-";}
-                else{ temp.projectDes = "-"; temp.duration="-";}
+                });
+            document.getElementById("IdToken").innerHTML = li;}
+            else{
+                document.getElementById("IdToken").innerHTML = "";
+                document.getElementById("internal-table").innerHTML = "There is no approved sheet in selcted dates.";
+            }
+            document.getElementById("post-timesheets").reset();
+    })
+      .catch(error => console.log('error', error));
+
+}
+
+function Get(){
+
+    var id = JSON.parse(localStorage.getItem("token"))['id'];
+   // console.log("https://localhost:44352/api/Attendance/" + id);
+    displayLoading();
+    fetch("https://localhost:44352/api/Attendance/" + id +"/Approved",{
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow', 
+    referrerPolicy: 'no-referrer'
+    }).then(resp => resp.json())
+    .then(data=>{
+        hideloading();
+        let li = "";
+            //data.reverse();
+            data.forEach(temp => {
+                var str = temp.currDate.slice(0,10);
+                var p = str.split("-");
+                var date = new Date(p[0],p[1],p[2]);
+                if(temp.leaveReason != null ){
                     li += `<tr>
                                 <td>${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</td>
-                                <td>${temp.projectDes}</td>
-                                <td>${temp.duration}</td>
+                                <td>-</td>
+                                <td>-</td>
                                 <td>${temp.leaveReason}</td>
                                 <td>${temp.status}</td>
+                          </tr>`;}
+                else{
+                    li += `<tr>
+                                <td>${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</td>
+                                <td>${temp.project.projectDes}</td>
+                                <td>${temp.duration}</td>
+                                <td>-</td>
+                                <td>${temp.status}</td>
                           </tr>`;
+                }
                 });
             document.getElementById("IdToken").innerHTML = li;
     }).catch(function(error) {
@@ -101,8 +159,21 @@ function showhide()
     {
     div.style.display = "block";
 }}
-}
+
 function Logout(){
     localStorage.removeItem('token');
     location.replace('./login.html');
+}
+
+function displayLoading(){
+    loader.classList.add("display");
+   // myForm.classList.add("abc");
+    setTimeout(()=>{
+        loader.classList.remove("display");
+    }, 5000);
+}
+ 
+function hideloading(){
+    loader.classList.remove("display");
+   // myForm.classList.remove("abc");
 }

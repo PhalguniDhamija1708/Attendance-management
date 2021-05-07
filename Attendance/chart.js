@@ -1,4 +1,3 @@
-
 var label = [];
 var duration = [];
 
@@ -33,6 +32,8 @@ fetch("https://localhost:44352/api/Attendance/" + id +"/Approved",{
       alert('Looks like there was a problem: \n', error);
   })
 
+
+
 var ctx = document.getElementById("myChart");
       var myChart = new Chart(ctx, {
         type: 'line',
@@ -40,9 +41,6 @@ var ctx = document.getElementById("myChart");
           labels: ['a','b','c','d','e','f','g'],
           datasets: [{
             data: duration,
-          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
             lineTension: 0,
             backgroundColor: 'transparent',
             borderColor: '#007bff',
@@ -55,7 +53,6 @@ var ctx = document.getElementById("myChart");
             yAxes: [{
               ticks: {
                 beginAtZero: true
-                beginAtZero: false
               }
             }]
           },
@@ -63,11 +60,7 @@ var ctx = document.getElementById("myChart");
             display: false,
           }
         }
-
       });
       
       console.log(label);
       console.log(duration);
-
-      });
-

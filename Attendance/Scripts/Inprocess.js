@@ -136,7 +136,10 @@ function Get(){
         //console.log(data);
         let li = '<option value="null">Choose One</option>';
             data.forEach(element => {
-                li += `<option value="${element.hashId}">${element.hashId}</option>`;
+                var sdate = element.hashId.slice(1,3);
+                var month = element.hashId.slice(3,5);
+                var edate = element.hashId.slice(5);
+                li += `<option value="${element.hashId}">${sdate}-${month}-${edate}</option>`;
                // console.log(li);
             });
             document.getElementById("selUser").innerHTML = li;

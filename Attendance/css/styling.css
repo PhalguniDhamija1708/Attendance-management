@@ -1,0 +1,20 @@
+#ImLoading {
+    border: 5px solid #f3f3f3;
+    border-top: 6px solid #9c41f2;
+    border-radius: 100%;
+    top: 250px;
+    opacity: 1;
+    margin: auto;
+    visibility: hidden;
+    position: fixed;
+    width: 10rem; 
+    height: 10rem;
+    z-index: 1;
+    left: 50%;
+    animation: spin 1s infinite linear;
+}
+
+#ImLoading.display {
+visibility: visible;
+z-index: 1;
+}

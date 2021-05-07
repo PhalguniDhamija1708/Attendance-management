@@ -1149,10 +1149,6 @@ pre code {
 		flex: 0 0 50%;
 		max-width: 50%
 	}
-	.col-md-7 {
-		flex: 0 0 58.33333%;
-		max-width: 58.33333%
-	}
 	.col-md-8 {
 		flex: 0 0 66.66667%;
 		max-width: 66.66667%
@@ -1253,6 +1249,14 @@ pre code {
 	}
 	.offset-md-11 {
 		margin-left: 91.66667%
+	}
+}
+
+@media (min-width:998px)
+{
+    .col-md-7 {
+		flex: 0 0 58.33333%;
+		max-width: 58.33333%
 	}
 }
 
@@ -11241,7 +11245,13 @@ a:focus {
 }
 
 .bg-password-image {
-	background: url(https://source.unsplash.com/IPMaxeoHXi4/600*800);
+	background: url(https://source.unsplash.com/oWTW-jNGl9I/600x800);
+	background-position: center;
+	background-size: cover
+}
+
+.bg-users-image{
+	background: url(https://source.unsplash.com/2LowviVHZ-E/225x225);
 	background-position: center;
 	background-size: cover
 }

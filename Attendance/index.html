@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="shortcut icon" href="./img/linklogo.png" type="image/x-icon">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Home Sheet</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,6 +20,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styling.css">
 
 </head>
 
@@ -62,21 +64,18 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="./index.html"
-                <a class="nav-link collapsed" href="#"
-
                     aria-expanded="true">
                     <i class="fas fa-fw fa-file"></i>
-                    <span>Previous Timesheet</span>
+                    <span>Approved Timesheet</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="./newchart.html"
+                <a class="nav-link collapsed" href="./Insights.html"
                     aria-expanded="true">
                     <i class="fas fa-fw fa-bar-chart" aria-hidden="true"></i>
-                    <span>Insights</span>
+                    <span>Your Activity</span>
                 </a>
-            </li> -->
             </li>
 
             
@@ -85,13 +84,13 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="./duplicate.html">
                     <i class="fas fa-fw fa-file"></i>
-                    <span>Current Timesheet</span>
+                    <span>Fill Timesheet</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="./blank.html">
                     <i class="fas fa-fw fa-file"></i>
-                    <span>In Process Timesheet</span>
+                    <span>Current Status</span>
                 </a>
             </li>
             <li class="nav-item" id="HideLi" style="display: none;">
@@ -157,19 +156,20 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                
 
                     <h1 class="h3 mb-2 text-gray-800">Timesheet</h1>
-                    <p class="mb-4">Your Previous timesheet is displayed below <a target="_blank"
-                    <p class="mb-4">Your current timesheet is displayed below <a target="_blank"
-                            href="https://datatables.net">@CyberGroup</a>.</p>
+                    <p class="mb-4">Your Previous timesheet is displayed below.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-
-                            <h5 class="m-0 font-weight-bold text-primary">Previous TimeSheet</h5>
-
-                            <h5 class="m-0 font-weight-bold text-primary">WeekNo</h5>
+                            <div class="row">
+                                <div class="col-6"><h5 class="m-0 font-weight-bold text-primary mt-1">Approved Sheet</h5></div>
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#my_Modal" style="float: right;"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -179,19 +179,18 @@
                                             <th>Date (mm/dd/yyyy)</th>
                                             <th>Project</th>
                                             <th>Duration (in Hours)</th>
-                                            <th>Current Date</th>
-                                            <th>Project</th>
-                                            <th>Duration</th>
-
                                             <th>Leave Reason</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                    
                                     <tbody id = "IdToken">
-                                        
+                                        <div id="ImLoading"></div>
                                     </tbody>
                                 </table>
+                                <center><div id="internal-table">
+
+                                </div></center>
                             </div>
                         </div>
                     </div>
@@ -205,10 +204,17 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; CyberGroup</span>
                     </div>
                 </div>
             </footer>
+            <!-- <footer class="sticky-footer bg-white" style="position: fixed;bottom: 0;width: 80%;text-align:center;">
+                <div class="container my-auto">
+                    <div class="copyright text-center mt-4">
+                        <span>Copyright &copy; CyberGroup</span>
+                    </div>
+                </div>
+            </footer> -->
             <!-- End of Footer -->
 
         </div>
@@ -221,7 +227,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+    <!-- <div id="ImLoading"></div> -->
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -241,6 +247,35 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="my_Modal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Please select your start and current date</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form id="post-timesheets">
+                    <label for="start" class="col-form-label">Start date:</label><br>
+                    <input type="date" id="start" name="start" class="form-control" required><br>
+                    <label for="end" class="col-form-label">End date:</label><br>
+                    <input type="date" id="end" name="end" class="form-control" required><br><br>
+      
+            </form> 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" id="CreateTable" onclick="Refresh()">Submit</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AttendanceSystem.CustomModels;
 using AttendanceSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -58,9 +59,21 @@ namespace AttendanceSystem.Controllers
         }
 
         // PUT: api/Display/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{id}/{value}")]
+        public IActionResult Put(int id, string value, [FromBody] DateRequest dateRequest)
         {
+            var Entries = (from days in _Context.DaysEntry
+                           where days.EmpId == id && days.Status == value && days.CurrDate >= dateRequest.StartDate && days.CurrDate <= dateRequest.EndDate
+                           orderby days.CurrDate descending
+                           select new
+                           {
+                               days.CurrDate,
+                               days.Project,
+                               days.Duration,
+                               days.LeaveReason,
+                               days.Status
+                           }).ToList();
+            return Ok(Entries);
         }
 
         // DELETE: api/ApiWithActions/5

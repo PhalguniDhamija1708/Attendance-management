@@ -6728,15 +6728,15 @@ function parseVisibleItems(chart, handler) {
 	var metasets = chart._getSortedVisibleDatasetMetas();
 	var metadata, i, j, ilen, jlen, element;
 
-	for (i = 0, ilen = metasets.length; i < ilen; ++i) {
-		metadata = metasets[i].data;
-		for (j = 0, jlen = metadata.length; j < jlen; ++j) {
-			element = metadata[j];
-			if (!element._view.skip) {
-				handler(element);
-			}
-		}
-	}
+	// for (i = 0, ilen = metasets.length; i < ilen; ++i) {
+	// 	metadata = metasets[i].data;
+	// 	for (j = 0, jlen = metadata.length; j < jlen; ++j) {
+	// 		element = metadata[j];
+	// 		if (!element._view.skip) {
+	// 			handler(element);
+	// 		}
+	// 	}
+	// }
 }
 
 /**

@@ -165,7 +165,7 @@ function GetProjects(){
 
 const getDatesBetween = (startDate, endDate) => {
 
-    console.log(startDate,endDate);
+    //console.log(startDate,endDate);
     let currentDate = new Date(
     startDate.getFullYear(),
     startDate.getMonth(),
