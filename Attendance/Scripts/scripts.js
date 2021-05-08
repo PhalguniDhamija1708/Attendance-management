@@ -55,7 +55,7 @@ function Login(){
                             'We have sent you an email.',
                             'success'
                         ).then(()=>{
-                            location.replace('./index.html');
+                            location.replace('./Approved.html');
                         })
                         }
                         else{

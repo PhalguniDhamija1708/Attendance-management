@@ -1,13 +1,12 @@
 const loader = document.getElementById('ImLoading');
 
 
-
-
 function Refresh(){
     var id = JSON.parse(localStorage.getItem("token"))['id'];
     var start = document.getElementById("start").value;
     var end = document.getElementById("end").value;
     var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer "+ JSON.parse(localStorage.getItem("token"))['token']);
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
@@ -21,6 +20,7 @@ function Refresh(){
       body: raw,
       redirect: 'follow'
     };
+    if(start!="" || end!=""){
     displayLoading();
     fetch("https://localhost:44352/api/Display/"+id+"/Approved", requestOptions)
       .then(response => response.json())
@@ -59,21 +59,29 @@ function Refresh(){
             }
             document.getElementById("post-timesheets").reset();
     })
-      .catch(error => console.log('error', error));
+      .catch(error => console.log('error', error));}
+    else{
+        Swal.fire({
+            icon: 'error',
+             title: 'Oops...',
+             text: 'Error occur check all field!',
+             timer: 2500
+           });
+    }
 
 }
 
 function Get(){
 
     var id = JSON.parse(localStorage.getItem("token"))['id'];
-   // console.log("https://localhost:44352/api/Attendance/" + id);
     displayLoading();
     fetch("https://localhost:44352/api/Attendance/" + id +"/Approved",{
     mode: 'cors',
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
-      'Content-Type': 'application/json'
+        'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+        'Content-Type': 'application/json'
     },
     redirect: 'follow', 
     referrerPolicy: 'no-referrer'
@@ -111,40 +119,38 @@ function Get(){
 
 
     fetch("https://localhost:44352/api/Login/" + id,{
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow', 
-    referrerPolicy: 'no-referrer'
-    }).then(resp => resp.json())
-    .then(data=>{
-        let li = "";
-            li = data.empName;
-            document.getElementById("EmpiDetails").innerHTML = li;
-    }).catch(function(error) {
-        alert('Looks like there was a problem: \n', error);
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        redirect: 'follow', 
+        referrerPolicy: 'no-referrer'
+        }).then(resp => resp.json())
+        .then(data=>{
+            let li = "";
+                li = data.empName;
+                document.getElementById("EmpiDetails").innerHTML = li;
+        }).catch(function(error) {
+            alert('Looks like there was a problem: \n', error);
     })
 
-   fetch("https://localhost:44352/api/TimeSheetRequest/" + id,{
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow', 
-    referrerPolicy: 'no-referrer'
-    }).then(resp => resp.json())
-    .then(data=>{
-        if(data.length>0){
-            showhide();
-        }
-    }).catch(function(error) {
-        alert('Looks like there was a problem: \n', error);
-    })
+    fetch("https://localhost:44352/api/TimeSheetRequest/" + id,{
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow', 
+        referrerPolicy: 'no-referrer'
+        }).then(resp => resp.json())
+        .then(data=>{
+            if(data){
+                showhide();}
+        }).catch(error => alert('error', error));
 
 }
 
@@ -167,7 +173,6 @@ function Logout(){
 
 function displayLoading(){
     loader.classList.add("display");
-   // myForm.classList.add("abc");
     setTimeout(()=>{
         loader.classList.remove("display");
     }, 5000);
@@ -175,5 +180,4 @@ function displayLoading(){
  
 function hideloading(){
     loader.classList.remove("display");
-   // myForm.classList.remove("abc");
 }

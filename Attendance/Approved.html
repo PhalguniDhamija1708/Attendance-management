@@ -8,11 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Approved Sheet</title>
     <link rel="shortcut icon" href="./img/linklogo.png" type="image/x-icon">
-    
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+
+    <title>Home Sheet</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,20 +20,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- <style>
-         .checkbar{
-    height: 50%; width: 600%;border-radius: 10px;outline: none;
-  }
-
-  @media (max-width: px) {
-    .checkbar {
-      width: 300% ;
-    }
-    .misterH{
-      visibility: hidden ;
-    }
-  } 
-    </style> -->
+    <link rel="stylesheet" href="./css/styling.css">
 
 </head>
 
@@ -48,7 +33,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Approved.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <img src="img/cglogo.png" alt="hugenerd" width="50" height="50" class="rounded-circle">
                 </div>
@@ -61,9 +46,9 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
-                <a class="nav-link" href="./index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Home</span></a>
+                    <a class="nav-link" href="./Approved.html">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Home</span></a>
                 </div>
             </li>
 
@@ -75,41 +60,39 @@
                 Statistics
             </div>
 
-            
+
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="./index.html"
-                    aria-expanded="true">
+                <a class="nav-link collapsed" href="./Approved.html" aria-expanded="true">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Approved Timesheet</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="./Insights.html"
-                    aria-expanded="true">
+                <a class="nav-link collapsed" href="./Insights.html" aria-expanded="true">
                     <i class="fas fa-fw fa-bar-chart" aria-hidden="true"></i>
                     <span>Your Activity</span>
                 </a>
             </li>
 
-            
+
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="./duplicate.html">
+                <a class="nav-link collapsed" href="./Current.html">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Fill Timesheet</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="./blank.html">
+                <a class="nav-link collapsed" href="./Pending.html">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Current Status</span>
                 </a>
             </li>
-            <li class="nav-item" id="HideLi" >
-                <a class="nav-link collapsed" href="./11.html">
+            <li class="nav-item" id="HideLi" style="display: none;">
+                <a class="nav-link collapsed" href="./Accepts.html">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Aprrove Timesheet</span>
                 </a>
@@ -137,7 +120,7 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        
+
 
                         <!-- <div class="topbar-divider d-none d-sm-block"></div> -->
 
@@ -146,17 +129,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="EmpiDetails"></span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <!-- <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <div class="dropdown-divider"></div> -->
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -172,75 +149,46 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <h1 class="h3 mb-2 text-gray-800">Approve Sheets</h1>
-                    <p class="mb-4">Search for the Sheet from the DropDown</p>
-                    <p>Please select the date from the following format, <b>[ (Start Date) - (Month)  - (End Date) ].</b></p>
+
+                    <h1 class="h3 mb-2 text-gray-800">Timesheet</h1>
+                    <p class="mb-4">Your Previous timesheet is displayed below.</p>
 
                     <!-- DataTales Example -->
-                    <!-- <div class="card shadow mb-4">
+                    <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <div class="row">
                                 <div class="col-6">
-                            <h5 class="m-0 font-weight-bold text-primary">WeekNo</h5></div>
-                            <div class="col-6 pr-0" style="padding-left: 15%;">
-                            <select id='selUser' style='width: 200px;'>
-                            </select>
-                              <button type='button' value='Seleted option' id='but_read' ><i class="fa fa-search" aria-hidden="true"></i></button><br/>
-                             <div id='result'></div>
-                             </div>
-                            </div>
-                        </div> -->
-                    <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <div class="row">
-                                <div class="col-6">
-                                <h5 class="m-0 font-weight-bold text-primary misterH">Sheet To Approve</h5>
+                                    <h5 class="m-0 font-weight-bold text-primary mt-1">Approved Sheet</h5>
                                 </div>
                                 <div class="col-6">
-                                 <div style="float: right; padding-right: 40px;">
-                                    <div class="form-outline checkbar" >
-                                    <select id='selUser' class="form-control" style='height:42px;width: 200px;border-radius: 10px;outline: none;'>
-                                    </select>
-                                    <button type="button" class="btn btn-primary mx-2" value='Seleted option' id='but_read' style="position: absolute;">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    </div>
-                                    
-
-                                    <!-- <div class="input-group">
-                                        <div class="form-outline">
-                                          <input type="search" id="form1" class="form-control" />
-                                          <label class="form-label" for="form1">Search</label>
-                                        </div>
-                                        <button type="button" class="btn btn-primary">
-                                          <i class="fas fa-search"></i>
-                                        </button>
-                                      </div> -->
-
-                                    <!-- <div id='result'></div> -->
-                                  </div>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#my_Modal" style="float: right;"><i class="fa fa-search"
+                                            aria-hidden="true"></i></button>
                                 </div>
                             </div>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Employee Name</th>
-                                            <th>Day</th>
+                                            <th>Date (mm/dd/yyyy)</th>
                                             <th>Project</th>
                                             <th>Duration (in Hours)</th>
                                             <th>Leave Reason</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
-                                    <tfoot id="tfooot">
 
-                                    </tfoot>
-                                    <tbody id = "IdToken">
-                                        
+                                    <tbody id="IdToken">
+                                        <div id="ImLoading"></div>
                                     </tbody>
                                 </table>
-                               <center> <div id="internal-table"></div></center>
+                                <center>
+                                    <div id="internal-table">
+
+                                    </div>
+                                </center>
                             </div>
                         </div>
                     </div>
@@ -254,17 +202,10 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- <footer class="sticky-footer bg-white" style="position: fixed;bottom: 0;width: 80%;text-align:center;">
-                <div class="container my-auto">
-                    <div class="copyright text-center mt-4">
                         <span>Copyright &copy; CyberGroup</span>
                     </div>
                 </div>
-            </footer> -->
+            </footer>
             <!-- End of Footer -->
 
         </div>
@@ -277,7 +218,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+    <!-- <div id="ImLoading"></div> -->
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -298,7 +239,35 @@
         </div>
     </div>
 
-    
+    <!-- Modal -->
+    <div class="modal fade" id="my_Modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Please select your start and current date</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="post-timesheets">
+                        <label for="start" class="col-form-label">Start date:</label><br>
+                        <input type="date" id="start" name="start" class="form-control" required><br>
+                        <label for="end" class="col-form-label">End date:</label><br>
+                        <input type="date" id="end" name="end" class="form-control" required><br><br>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="CreateTable"
+                        onclick="Refresh()">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -312,17 +281,8 @@
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="./Scripts/Approval.js"></script>
-    
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-    <!-- jQuery --> 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 
-    <!-- Select2 JS --> 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="Scripts/tables.js"></script>
 
 </body>
 

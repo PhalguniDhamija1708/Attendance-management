@@ -1,6 +1,6 @@
 
 const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-//
+
 $(document).ready(function(){
  
     // Initialize select2
@@ -117,7 +117,6 @@ function Get(){
                // console.log(li);
             });
             document.getElementById("project-m").innerHTML = li;
-            //console.log(document.getElementById("project"));
     }).catch(function(error) {
         alert('Looks like there was a problem: \n', error);
     })
@@ -127,7 +126,8 @@ function Get(){
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
-      'Content-Type': 'application/json'
+        'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+        'Content-Type': 'application/json'
     },
     redirect: 'follow', 
     referrerPolicy: 'no-referrer'
@@ -143,28 +143,23 @@ function Get(){
                // console.log(li);
             });
             document.getElementById("selUser").innerHTML = li;
-            //console.log(document.getElementById("project"));
-    }).catch(function(error) {
-        alert('Looks like there was a problem: \n', error);
-    })
+    }).catch(error => alert('error', error));
 
     fetch("https://localhost:44352/api/TimeSheetRequest/" + id,{
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow', 
-    referrerPolicy: 'no-referrer'
-    }).then(resp => resp.json())
-    .then(data=>{
-        if(data.length>0){
-            showhide();
-        }
-    }).catch(function(error) {
-        alert('Looks like there was a problem: \n', error);
-    })
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow', 
+        referrerPolicy: 'no-referrer'
+        }).then(resp => resp.json())
+        .then(data=>{
+            if(data){
+                showhide();}
+        }).catch(error => alert('error', error));
 
 }
 
@@ -185,6 +180,7 @@ function UpdateModal(date){
     document.getElementById("updateModal").value = date;
 }
 
+//start of update entry
 function Put(){
     var id = JSON.parse(localStorage.getItem("token"))['id'];
     var date = document.getElementById("updateModal").value;
@@ -207,7 +203,7 @@ function Put(){
         "isHoliday" : Holidays,
         "status" : Status
     }
-    console.log(Temp);
+    
     try{
         fetch("https://localhost:44352/api/Attendance/" + id + "/In Progress/"+date, {
             method: "PUT",
@@ -215,7 +211,7 @@ function Put(){
             cache: 'no-cache', 
             credentials: 'same-origin',
             headers: {
-                //'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+                'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
                 'Content-Type': 'application/json'
             },
             redirect: 'follow', 
@@ -253,6 +249,7 @@ function Put(){
     document.getElementById('update-timesheet').reset();
     
 }
+//end for update entry.
 
 function CureeWeek(RequestDate){
     todaydate = new Date(RequestDate); 

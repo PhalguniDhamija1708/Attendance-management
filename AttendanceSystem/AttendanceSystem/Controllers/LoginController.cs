@@ -26,12 +26,21 @@ namespace AttendanceSystem.Controllers
             _config = config;
         }
 
+        //Api return the Login User Info.
         [HttpGet("{id}")]
         public IActionResult GetUserByToken(int id)
         {
-            var User = _Context.Employee.FirstOrDefault(x => x.EmpId == id);
+            var User = (from emp in _Context.Employee
+                        where emp.EmpId == id
+                        select new
+                        {
+                            emp.EmpName,
+                            emp.Email,
+                            emp.ApproverId
+                        }).FirstOrDefault();
             return Ok(User);
         }
+
 
         // POST: api/Login
         [HttpPost]
@@ -49,6 +58,7 @@ namespace AttendanceSystem.Controllers
             return response;
         }
 
+        //Jwt Token.
         private object GenerateJSONWebToken(object user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -63,6 +73,7 @@ namespace AttendanceSystem.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        //check for the authorize User
         private Employee AuthenticateUser(LoginRequest Request)
         {
             var Users = _Context.Employee.ToList();
@@ -70,6 +81,7 @@ namespace AttendanceSystem.Controllers
             return user;
         }
 
+        //Api for forget password.
         // PUT: api/Login/vikas84uu@gmail.com
         [HttpPut("{Email}")]
         public ActionResult UpdateDetails(string email, [FromBody] PassWordChangeRequest temp)

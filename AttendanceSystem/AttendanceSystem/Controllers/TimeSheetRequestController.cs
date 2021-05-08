@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AttendanceSystem.CustomModels;
 using AttendanceSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,26 +21,23 @@ namespace AttendanceSystem.Controllers
             _Context = context;
         }
 
-        // GET: api/TimeSheetRequest
-        [HttpGet]
-       /* public IActionResult Get()
-        {
-            
-        }*/
-
+        //check if the logged in user is anyone's approver or not.
         // GET: api/TimeSheetRequest/5
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult changeValues(int id)
         {
             var Response = _Context.Employee.Where(x => x.ApproverId == id).ToList();
-            return Ok(Response);
+            if (Response != null)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
         }
         
-        // POST: api/TimeSheetRequest
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
         // PUT: api/TimeSheetRequest/5
         [HttpPut("{id}")]
@@ -47,15 +45,9 @@ namespace AttendanceSystem.Controllers
         {
             var Entry = _Context.DaysEntry.Where(x => x.EmpId == id && x.Status == value.previousStatus && x.CurrDate>= value.StartDate && x.CurrDate <= value.EndDate).ToList();
             Entry.ForEach(a => { a.Status = value.newStatus; a.HashId = value.HashId; });
-           // Entry.ForEach
             _Context.SaveChanges();
             return Ok(Entry);
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
