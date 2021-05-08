@@ -2,30 +2,34 @@ document.getElementById("end").addEventListener("mouseover",displayDate);
 function displayDate(){
     var startD=document.getElementById("start");
     var Sdate=new Date(startD.value);
-
+    
     Sdate.setDate(Sdate.getDate()+7);
     var newdate= Sdate.getDate() + '-' + (Sdate.getMonth() + 1) + '-' +  Sdate.getFullYear();
     document.getElementById("end").value=newdate;
 }
 
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const holidays = ['0-1','0-26','2-29','3-2','4-13','7-30','9-15','10-04','10-5','11-27'];
+
+
 var id = JSON.parse(localStorage.getItem("token"))['id'];
-fetch("https://localhost:44352/api/TimeSheetRequest/" + id,{
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow', 
-    referrerPolicy: 'no-referrer'
-    }).then(resp => resp.json())
-    .then(data=>{
-        if(data.length>0){
-            showhide();
-        }
-    }).catch(function(error) {
-        alert('Looks like there was a problem: \n', error);
-})
+
+function Get(){
+    fetch("https://localhost:44352/api/TimeSheetRequest/" + id,{
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow', 
+        referrerPolicy: 'no-referrer'
+        }).then(resp => resp.json())
+        .then(data=>{
+            if(data){
+                showhide();}
+        }).catch(error => alert('error', error));
 
     fetch("https://localhost:44352/api/Login/" + id,{
     mode: 'cors',
@@ -43,23 +47,23 @@ fetch("https://localhost:44352/api/TimeSheetRequest/" + id,{
             li = data.empName;
             document.getElementById("EmpiDetails").innerText = li;
             localStorage.setItem('appid',data.approverId);
-           // console.log(document.getElementById("EmpiDetails"));
     }).catch(function(error) {
         alert('Looks like there was a problem: \n', error);
     })
 
-const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const holidays = ['0-1','0-26','2-29','3-2','4-13','7-30','9-15','10-04','10-5','11-27'];
-
+}
 
 function TableLoad(){
     var id = JSON.parse(localStorage.getItem("token"))['id'];
+
+    //render data on page for selected week.
     fetch("https://localhost:44352/api/Attendance/" + id +"/Pending",{
     mode: 'cors',
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
-      'Content-Type': 'application/json'
+        'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'], 
+        'Content-Type': 'application/json'
     },
     redirect: 'follow', 
     referrerPolicy: 'no-referrer'
@@ -73,10 +77,10 @@ function TableLoad(){
             p[1] = p[1]-1;
             var date = new Date(p[0],p[1],p[2]);
             var argdate = days[date.getDay()];
-           // console.log(date);
+            // console.log(date);
             if(temp.project == null && temp.leaveReason ==null && temp.isHoliday == false)
             {
-                 li+=    `<tr>
+                li+=    `<tr>
                             <td>${argdate}</td>
                             <td>-</td>
                             <td>-</td>
@@ -95,11 +99,11 @@ function TableLoad(){
                             <td><a href="#"  data-toggle="modal" data-target="#updateModal" onclick="UpdateModal('${temp.currDate}')">
                             <i class="fa fa-edit ml-3" aria-hidden="true"></i></a>
                             </td>
-                        </tr>`
+                            </tr>`
             }
             else if(temp.project == null && temp.leaveReason != null && temp.isHoliday == false){
                 li+=    `<tr>
-                            <td>${argdate}</td>
+                <td>${argdate}</td>
                             <td>-</td>
                             <td>-</td>
                             <td>${temp.leaveReason}</td>
@@ -107,29 +111,29 @@ function TableLoad(){
                             <i class="fa fa-edit ml-3" aria-hidden="true"></i></a>
                             </td>
                         </tr>`
-            }
-            else if(temp.isHoliday == true){
-                 li+=   `<tr>
-                            <td>${argdate}</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>${temp.leaveReason}</td>
-                            <td><a href="#"  data-toggle="modal" data-target="#updateModal" onclick="UpdateModal('${temp.currDate}')">
-                            <i class="fa fa-edit ml-3" aria-hidden="true"></i></a>
+                    }
+                    else if(temp.isHoliday == true){
+                        li+=   `<tr>
+                        <td>${argdate}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>${temp.leaveReason}</td>
+                        <td><a href="#"  data-toggle="modal" data-target="#updateModal" onclick="UpdateModal('${temp.currDate}')">
+                        <i class="fa fa-edit ml-3" aria-hidden="true"></i></a>
                             </td>
                       </tr>`
-                }
+                    }
             });
             document.getElementById("CurrentSheet").innerHTML = li;
             if(data.length>0){
             document.getElementById("internal-table").innerHTML = `<div style="float: right;"><a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#putModal">
                                                                     <span class="icon text-white-50">
-                                                                     <i class="fas fa-check"></i>
+                                                                    <i class="fas fa-check"></i>
                                                                     </span>
                                                                     <span class="text">Send for Approval</span>
                                                                 </a></div>`;}
-
-    })
+                                                                
+                                                            })
 }
 
 TableLoad();
@@ -144,42 +148,39 @@ function GetProjects(){
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
-      'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
     },
     redirect: 'follow', 
     referrerPolicy: 'no-referrer'
-    }).then(resp => resp.json())
+}).then(resp => resp.json())
     .then(data=>{
         //console.log(data);
         let li = '<option value="null">Choose One</option>';
             data.forEach(element => {
                 li += `<option value="${element.projectId}">${element.projectDes}</option>`;
-               // console.log(li);
             });
             document.getElementById("project-m").innerHTML = li;
-            //console.log(document.getElementById("project"));
     }).catch(function(error) {
         alert('Looks like there was a problem: \n', error);
     })
 }
 
+//start of post request for selected week
 const getDatesBetween = (startDate, endDate) => {
 
-    //console.log(startDate,endDate);
     let currentDate = new Date(
-    startDate.getFullYear(),
+        startDate.getFullYear(),
     startDate.getMonth(),
     startDate.getDate()
     );
     while (currentDate < endDate) {
-    var Show = true;    
-    if(currentDate.getDay() == 0 || currentDate.getDay() == 6)
+        var Show = true;    
+        if(currentDate.getDay() == 0 || currentDate.getDay() == 6)
     { Show = false ;}
     if(Show){
+        
         var id = JSON.parse(localStorage.getItem("token"))['id'];
         var Holiday = false;
-        
-        //if(holidays.includes(currentDate.getMonth()+'-'+currentDate.getDate())) {   Holiday =true;  }
         var Month = currentDate.getMonth()+1;
         var Temp = {
             "currDate" : currentDate.getFullYear()+"-"+Month+"-"+currentDate.getDate(),
@@ -191,7 +192,7 @@ const getDatesBetween = (startDate, endDate) => {
             "isHoliday" : Holiday,
             "status" : "Pending"
         }
-
+        
         console.log(Temp);
         try{
             fetch("https://localhost:44352/api/Attendance", {
@@ -200,14 +201,15 @@ const getDatesBetween = (startDate, endDate) => {
                 cache: 'no-cache', 
                 credentials: 'same-origin',
                 headers: {
-                    //'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+                    'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
                     'Content-Type': 'application/json'
                 },
                 redirect: 'follow', 
                 referrerPolicy: 'no-referrer',
                 body: JSON.stringify(Temp)
-                }).then(res => {
+            }).then(res => {
                     if(res.status==200){
+                        TableLoad();
                     }
                     else if(res.status==401){
                         alert("Unauthorized  user");
@@ -216,21 +218,42 @@ const getDatesBetween = (startDate, endDate) => {
                     }
                     var frm = document.getElementById("post-timesheets");
                     frm.reset();
-                    TableLoad();
                 });
             }
             catch(Exception){
                 alert("Error: Sign in for posting new jobs!!");
             }
-    }
-    currentDate = new Date(
+        }
+        currentDate = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
     currentDate.getDate() + 1, // Will increase month if over range
     );
-    }
+}
+    
 };
 
+document.getElementById("CreateTable").addEventListener('click',UpdateTable)
+function UpdateTable(){
+    var start = document.getElementById('start').value;
+    var end = document.getElementById('end').value;
+    var p1 = start.split("-");
+    var p2 = end.split("-");
+    if(start!="" && end!=""){
+    console.log(start, end);
+    getDatesBetween(new Date(p1[0],p1[1]-1,p1[2]), new Date(p2[2],p2[1]-1,p2[0]));}
+    else{
+        Swal.fire({
+                icon: 'error',
+                 title: 'Oops...',
+                 text: 'Error occur check all field!',
+                 timer: 2500
+               });
+    }
+}    
+//end of post request for selected week
+
+//start for update function for each entry
 function UpdateModal(date){
     document.getElementById("UpdateTitleModal").innerHTML = `${date.slice(0,10)}`;
     document.getElementById("updateModal").value = date;
@@ -267,7 +290,7 @@ function Put(){
             cache: 'no-cache', 
             credentials: 'same-origin',
             headers: {
-                //'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+                'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
                 'Content-Type': 'application/json'
             },
             redirect: 'follow', 
@@ -303,7 +326,9 @@ function Put(){
 
     document.getElementById('update-timesheet').reset();
 }
+//end for update entries
 
+//start of submit timesheet
 function CurrStatus(){
     var EmailTo = "";
     fetch("https://localhost:44352/api/Login/" + localStorage.getItem("appid"),{
@@ -317,8 +342,6 @@ function CurrStatus(){
         referrerPolicy: 'no-referrer'
         }).then(resp => resp.json())
         .then(data=>{
-            //console.log(data);
-            let li = "";
             EmailTo = data.Email;
         }).catch(function(error) {
             alert('Looks like there was a problem: \n', error);
@@ -336,7 +359,7 @@ function CurrStatus(){
         hashId : hash
     }
     console.log(AprovalRequest);
-
+    if(startdate!="" || enddate!=""){
     fetch("https://localhost:44352/api/TimeSheetRequest"+"/"+id, {
             method: "PUT",
             mode: 'cors', 
@@ -366,7 +389,7 @@ function CurrStatus(){
                 Body:"Hi I have requested for my timesheet with the id of " + hash + " please review it.",
                
             })
-           location.replace("./blank.html");
+           location.replace("./Pending.html");
         }
         else{
             Swal.fire({
@@ -378,29 +401,20 @@ function CurrStatus(){
               })
         }
         
-    })
+    })}
+    else{
+        Swal.fire({
+            icon: 'error',
+             title: 'Oops...',
+             text: 'Error occur check all field!',
+             timer: 2500
+           });
+    }
     document.getElementById('change-timesheet').reset();
     
 }
-    
-document.getElementById("CreateTable").addEventListener('click',UpdateTable)
-function UpdateTable(){
-    var start = document.getElementById('start').value;
-    var end = document.getElementById('end').value;
-    var p1 = start.split("-");
-    var p2 = end.split("-");
-    if(start!="" && end!=""){
-    console.log(start, end);
-    getDatesBetween(new Date(p1[0],p1[1]-1,p1[2]), new Date(p2[2],p2[1]-1,p2[0]));}
-    else{
-        Swal.fire({
-                icon: 'error',
-                 title: 'Oops...',
-                 text: 'Error occur check all field!',
-                 timer: 2500
-               });
-    }
-}    
+
+//end of submit timesheet
 
 
 function showhide()

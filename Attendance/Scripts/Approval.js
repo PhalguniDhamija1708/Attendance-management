@@ -75,6 +75,7 @@ function TableLoad(){
                                                                     </div>`;
             }
     })}
+    
 }   
 
 function Get(){
@@ -105,7 +106,8 @@ function Get(){
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-          'Content-Type': 'application/json'
+            'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+            'Content-Type': 'application/json'
         },
         redirect: 'follow', 
         referrerPolicy: 'no-referrer'
@@ -177,6 +179,7 @@ function Accept(){
                             Subject : "Request Approved",
                             Body:"Your Request for " +localStorage.getItem('hsh')+ " has been Approved",               
                         })
+                        window.location.reload();
                     }
                     else{
                         Swal.fire({
@@ -257,6 +260,7 @@ function Reject(){
                             Subject : "Request Denied",
                             Body:"Your Request for " +localStorage.getItem('hsh')+ " has been denied please refill your Timesheet",               
                         })
+                        window.location.reload();
                     }
                 }
                 );}

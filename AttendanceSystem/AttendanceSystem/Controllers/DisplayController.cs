@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AttendanceSystem.CustomModels;
 using AttendanceSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,12 +22,6 @@ namespace AttendanceSystem.Controllers
             _Context = context;
         }
 
-        // GET: api/Display
-       /* [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }*/
 
         // GET: api/Display/5
         [HttpGet]
@@ -52,14 +47,11 @@ namespace AttendanceSystem.Controllers
 
         }
 
-        // POST: api/Display
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
         // PUT: api/Display/5
+        //search and display details from start date to end date for perticular status.
         [HttpPut("{id}/{value}")]
+        [Authorize]
         public IActionResult Put(int id, string value, [FromBody] DateRequest dateRequest)
         {
             var Entries = (from days in _Context.DaysEntry

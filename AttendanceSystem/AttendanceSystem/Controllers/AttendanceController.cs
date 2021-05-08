@@ -21,17 +21,10 @@ namespace AttendanceSystem.Controllers
             _Context = context;
         }
 
-        // GET: api/Attendance
-        [HttpGet]
-        //[Authorize]
-        /*public IActionResult GetUserByToken()
-        {
-            var student
-        }*/
-
+        //return data to display or render with a perticular status.
         // GET: api/Attendance/5
         [HttpGet("{id}/{value}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult GetByToken(int id, string value)
         {
             if (value == "Approved")
@@ -77,6 +70,7 @@ namespace AttendanceSystem.Controllers
 
         // POST: api/Attendance
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] DaysEntryRequest value)
         {
             var days = _Context.DaysEntry.Where(x => x.CurrDate == value.CurrDate && x.EmpId == value.EmpId).FirstOrDefault();
@@ -103,6 +97,7 @@ namespace AttendanceSystem.Controllers
 
         // PUT: api/Attendance/5/pending/2021-5-4
         [HttpPut("{id}/{request}/{date}")]
+        [Authorize]
         public IActionResult Put(int id,string request,DateTime date, [FromBody] DaysEntryRequest value)
         {
             DaysEntry Entry = _Context.DaysEntry.FirstOrDefault(x => x.EmpId==id && x.Status==request && x.CurrDate == date);
@@ -119,10 +114,5 @@ namespace AttendanceSystem.Controllers
             return Ok(Entry);
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

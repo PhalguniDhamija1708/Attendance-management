@@ -5,6 +5,7 @@ const xs=[];
 
 function get(){
     var id = JSON.parse(localStorage.getItem("token"))['id'];
+    //Api return User Info.
      fetch("https://localhost:44352/api/Login/" + id,{
         mode: 'cors',
         cache: 'no-cache',
@@ -23,35 +24,36 @@ function get(){
             alert('Looks like there was a problem: \n', error);
     })
     
+    //check if the logged user is approver or not
     fetch("https://localhost:44352/api/TimeSheetRequest/" + id,{
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
+            'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
             'Content-Type': 'application/json'
         },
         redirect: 'follow', 
         referrerPolicy: 'no-referrer'
         }).then(resp => resp.json())
         .then(data=>{
-            if(data.length>0){
-                showhide();
-            }
-        }).catch(function(error) {
-            alert('Looks like there was a problem: \n', error);
-    })
+            if(data){
+                showhide();}
+        }).catch(error => alert('error', error));
 }
 
 
 function chartIt(myChart){
     var id = JSON.parse(localStorage.getItem("token"))['id'];
 
+    //return data of last 5 days to render on graph.
     fetch("https://localhost:44352/api/Attendance/" + id +"/Approved",{
         mode: 'cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-        'Content-Type': 'application/json'
+            'Authorization':"Bearer "+ JSON.parse(localStorage.getItem("token"))['token'],
+            'Content-Type': 'application/json'
         },
         redirect: 'follow', 
         referrerPolicy: 'no-referrer'
@@ -70,14 +72,13 @@ function chartIt(myChart){
                     else{ ys.push(temp.duration); xs.push(temp.currDate);}}
                     itr += 1;
             });
-               // console.log(xs);
-               // console.log(ys);
                myChart.update();
-        })
+        }).catch(error => alert('error', error));
 
 
 }
 
+//bar graph on 2D plain.
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',

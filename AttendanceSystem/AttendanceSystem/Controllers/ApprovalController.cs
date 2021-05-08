@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AttendanceSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,7 @@ namespace AttendanceSystem.Controllers
 
         // GET: api/Approval/5
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult GetEmployeeEntry(int id)
         {
             var Entries = (from days in _Context.DaysEntry
@@ -39,11 +41,7 @@ namespace AttendanceSystem.Controllers
         }
 
         
-        // POST: api/Approval
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        
 
         // PUT: api/Approval/5
         [HttpPut("{id}")]

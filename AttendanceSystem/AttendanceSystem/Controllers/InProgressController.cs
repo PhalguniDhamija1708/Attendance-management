@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AttendanceSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ namespace AttendanceSystem.Controllers
 
         // GET: api/InProgress/5
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult GetHashforEmp(int id)
         {
             var Entries = (from days in _Context.DaysEntry
@@ -42,22 +44,5 @@ namespace AttendanceSystem.Controllers
             return Ok(Entries);
         }
 
-        // POST: api/InProgress
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/InProgress/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
